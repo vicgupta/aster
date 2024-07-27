@@ -1,6 +1,42 @@
 from .models import GroqModel, OllamaModel, OpenAIModel
 from .utils import create_prompt
 
+# Display mode enables printing of API requests and responses
+display_requests = True 
+display_responses = True
+
+# Debug mode enables comprehensive logging for detailed diagnostics
+debug_mode = False
+
+# Define color codes
+COLORS = {
+    'cyan': '\033[96m',
+    'blue': '\033[94m',
+    'yellow': '\033[93m',
+    'red': '\033[91m',
+    'reset': '\033[0m'
+}
+
+def print_color(message, color):
+    print(f"{COLORS.get(color, '')}{message}{COLORS['reset']}")
+
+def print_api_request(message):
+    if not display_requests:
+        return
+    print_color(message, 'cyan')
+
+def print_api_response(message):
+    if not display_responses:
+        return
+    print_color(message, 'blue')
+
+def print_debug(message):
+    if not debug_mode:
+        return
+    print_color(message, 'yellow')
+
+def print_error(message):
+    print_color(message, 'red')
 
 class Agent:
     def __init__(
