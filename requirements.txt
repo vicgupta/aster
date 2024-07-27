@@ -1,0 +1,8 @@
+ollama
+groq
+openai
+beautifulsoup4
+requests
+duckduckgo-search
+#pocketbase
+
