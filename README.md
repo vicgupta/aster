@@ -1,5 +1,7 @@
 # aster
+Aster (or aster) is a simple AI agentic framework for Beginners.
 
+Written in python, a beginner can use most models like Ollama, OpenAI, Groq, etc. to build agents and systems with it.
 
 ### Simple way to start with Aster
 ``` python
