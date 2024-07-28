@@ -1,8 +1,8 @@
 import os, json
 from aster.models import OllamaModel, GroqModel, OpenAIModel
 from aster.agents import Agent
-from aster.sqlite3orm import SQLite3ORM
-from aster.pockbaseorm import PocketbaseORM
+from aster.db.sqlite3orm import SQLite3ORM
+from aster.db.pocketbaseorm import PocketbaseORM
 from aster.tools import WebTools
 
 llm = OllamaModel(model="llama3.1")
