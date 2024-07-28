@@ -22,4 +22,16 @@ llm = OllamaModel(model="llama3")
 agent = Agent(llm, custom_system_prompt="You are a Pirate named Matey.")
 response = agent.ask(prompt="why is the sky blue?")
 print(response)
+```
+
+### Duck Duck Go Search (used as a tool to agent)
+``` python
+search_results = WebTools.get_duckduckgo_search("chatgpt", region="us-en", safesearch="on", timeline="w", max_results=5)
+for item in search_results:
+    print(item['title'], item['href'])
+    print(item['body'])
+```
+
+
+    
 
