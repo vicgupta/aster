@@ -1,7 +1,7 @@
 # aster
 
 
-### Simple Example - Easiest way to run Aster
+### Simple way to start with Aster
 ``` python
 from aster.models import OllamaModel
 from aster.agents import Agent
@@ -11,7 +11,7 @@ agent = Agent(llm)
 response = agent.ask(prompt="why is the sky blue?")
 print(response)
 ```
-### Simple Example - Giving a personality to Agent by adding custom system prompt
+### Giving a personality to Agent by adding custom system prompt
 ``` python
 from aster.models import OllamaModel
 from aster.agents import Agent
