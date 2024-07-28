@@ -30,7 +30,8 @@ from aster.agents import Agent
 
 llm_llama3 = OllamaModel(model="llama3")
 llm_gpt4om = OpenAIModel(model="gpt-4o-mini", api_key="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-agent = Agent(llm, custom_system_prompt="You are a Pirate named Matey.")
+agent = Agent(llm_llama3, custom_system_prompt="You are a Pirate named Matey.")
+summarizer = Agent(llm_gpt4om, custom_system_prompt="You summarize the text in few paragraphs.")
 response = agent.ask(prompt="why is the sky blue?")
 print(response)
 ```
@@ -42,6 +43,21 @@ for item in search_results:
     print(item['body'])
 ```
 
+### Summarize Duck Duck Go Search pages one by one
+``` python
+from aster.models import OllamaModel
+from aster.agents import Agent
+from aster.tools import WebTools
 
-    
+llm = OllamaModel(model="llama3")
+summarizer = Agent(llm_gpt4om, custom_system_prompt="You summarize the text in few paragraphs.")
 
+search_results = WebTools.get_duckduckgo_search("chatgpt", region="us-en", safesearch="on", timeline="w", max_results=5)
+print(search_results)
+for item in search_results:
+    print(item['title'], item['href'], item['body'])
+    content_page = WebTools.get_text_from_url(item['href'])
+    content_summarizer = summarizer.ask(prompt=content_page)
+    print (content_summarizer)
+    print ("*"*120)
+```

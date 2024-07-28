@@ -31,3 +31,14 @@ for item in search_results:
     # print (content_page)
     print ("*"*120)
     # print(item['body'])
+
+
+from aster.models import OllamaModel, OpenAIModel
+from aster.agents import Agent
+
+llm_llama3 = OllamaModel(model="llama3")
+llm_gpt4om = OpenAIModel(model="gpt-4o-mini", api_key="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+agent = Agent(llm_llama3, custom_system_prompt="You are a Pirate named Matey.")
+summarizer = Agent(llm_gpt4om, custom_system_prompt="You summarize the text in a few paragraphs.")
+response = agent.ask(prompt="why is the sky blue?")
+print (summarizer.ask(prompt=response))
