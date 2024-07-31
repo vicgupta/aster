@@ -40,31 +40,31 @@ class PocketbaseORM():
             result = ["Error"]
         return result
 
-    def get_items(self, perPage=10):
+    def get_items(self, perPage=10, sort_by="-created"):
         try:
             rows = self.pb.collection(self.collection).get_list(
-                1, f'{perPage}', {'sort': '-created'}
+                1, f'{perPage}', {'sort': sort_by}
             )
         except:
             print ("error")
             rows = []
         return rows.items
     
-    def get_items_with_filter_exact(self, column_name = "", column_value = "", perPage=10):
+    def get_items_with_filter_exact(self, column_name = "", column_value = "", perPage=10, sort_by="-created"):
         try:
             rows = self.pb.collection(self.collection).get_list(
                 1, f'{perPage}',
                 #{"filter": "article_keyword~'" + article_value + "'"}
                 {
                     "filter": column_name + "='"+column_value+"'",
-                    "sort": "-created"
+                    "sort": sort_by
                  }
             )
         except:
             rows = []
         return rows.items
 
-    def get_items_with_filter(self, column_name = "", column_value= "", perPage=10):
+    def get_items_with_filter(self, column_name = "", column_value= "", perPage=10, sort_by="-created"):
         try:
             rows = self.pb.collection(self.collection).get_list(
                 1, f'{perPage}',
@@ -72,7 +72,7 @@ class PocketbaseORM():
                 {
 
                     "filter": column_name + "~'" + column_value + "'",
-                    "sort": "-created"
+                    "sort": sort_by
                  }
             )
         except:
