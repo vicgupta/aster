@@ -35,6 +35,8 @@ print(response)
 ```
 ### Duck Duck Go Search (used as a tool to agent)
 ``` python
+from aster.tools import WebTools
+
 search_results = WebTools.get_duckduckgo_search("chatgpt", region="us-en", safesearch="on", timeline="w", max_results=5)
 for item in search_results:
     print(item['title'], item['href'])
