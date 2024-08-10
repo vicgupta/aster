@@ -53,10 +53,10 @@ class WebTools:
             return None
 
     @staticmethod
-    def get_duckduckgo_news(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10, backend='api'):
+    def get_duckduckgo_news(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10):
         from duckduckgo_search import DDGS
         try:
-            results = DDGS().news(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results, backend=backend)
+            results = DDGS().news(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results)
             return results
         except Exception as e:
             print("An error occurred:", e)
