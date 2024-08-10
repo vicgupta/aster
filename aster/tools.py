@@ -43,10 +43,20 @@ def print_error(message):
 class WebTools:
 
     @staticmethod
-    def get_duckduckgo_search(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10):
+    def get_duckduckgo_search(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10, backend='api'):
         from duckduckgo_search import DDGS
         try:
-            results = DDGS().text(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results)
+            results = DDGS().text(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results, backend=backend)
+            return results
+        except Exception as e:
+            print("An error occurred:", e)
+            return None
+
+    @staticmethod
+    def get_duckduckgo_news(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10, backend='api'):
+        from duckduckgo_search import DDGS
+        try:
+            results = DDGS().news(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results, backend=backend)
             return results
         except Exception as e:
             print("An error occurred:", e)
