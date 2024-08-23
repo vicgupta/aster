@@ -53,11 +53,12 @@ class Agent:
         self._temperature = temperature
         self._format = format.lower()
         self._max_tokens = max_tokens
-        self._history = []
+        self._chat_history = []
 
     def ask(self, prompt):
         message_prompt = []
         message_prompt.append(create_prompt("system", self._system_prompt))
+        message_prompt.append(create_prompt(self._chat_history))
         message_prompt.append(create_prompt("user", prompt))
 
         if isinstance(self._llm, OllamaModel):
@@ -78,6 +79,6 @@ class Agent:
                 message_prompt,
             )
 
-        self._history.append(message_prompt)
-        self._history.append(create_prompt("agent-reply", response))
+        # self._chat_history.append(message_prompt)
+        self._chat_history.append(create_prompt("assistant", response))
         return response
