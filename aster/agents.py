@@ -2,7 +2,7 @@ from .models import GroqModel, OllamaModel, OpenAIModel
 from .utils import create_prompt
 
 # Display mode enables printing of API requests and responses
-display_requests = True 
+display_requests = True
 display_responses = True
 
 # Debug mode enables comprehensive logging for detailed diagnostics
@@ -53,32 +53,30 @@ class Agent:
         self._temperature = temperature
         self._format = format.lower()
         self._max_tokens = max_tokens
-        self._chat_history = []
+        self.message_prompt = []
+        self.message_prompt.append(create_prompt("system", self._system_prompt))
 
     def ask(self, prompt):
-        message_prompt = []
-        message_prompt.append(create_prompt("system", self._system_prompt))
-        message_prompt.append(create_prompt(self._chat_history))
-        message_prompt.append(create_prompt("user", prompt))
+        self.message_prompt.append(create_prompt("user", prompt))
 
         if isinstance(self._llm, OllamaModel):
             response = self._llm.ask(
-                message_prompt,
+                self.message_prompt,
                 temperature=self._temperature,
                 format=self._format,
             )
         if isinstance(self._llm, GroqModel):
             response = self._llm.ask(
-                message_prompt,
+                self.message_prompt,
                 temperature=self._temperature,
                 max_tokens=self._max_tokens,
                 format=self._format,
             )
         if isinstance(self._llm, OpenAIModel):
             response = self._llm.ask(
-                message_prompt,
+                self.message_prompt,
             )
 
         # self._chat_history.append(message_prompt)
-        self._chat_history.append(create_prompt("assistant", response))
+        self.message_prompt.append(create_prompt("assistant", response))
         return response
