@@ -57,7 +57,10 @@ class Agent:
         self.message_prompt.append(create_prompt("system", self._system_prompt))
 
     def ask(self, prompt):
-        self.message_prompt.append(create_prompt("user", prompt))
+        message_prompt = []
+        message_prompt.append(create_prompt("system", self._system_prompt))
+        message_prompt.append(create_prompt(self._chat_history))
+        message_prompt.append(create_prompt("user", prompt))
 
         if isinstance(self._llm, OllamaModel):
             response = self._llm.ask(
