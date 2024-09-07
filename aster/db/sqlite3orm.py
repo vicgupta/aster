@@ -28,11 +28,16 @@ class SQLite3ORM:
         self.conn.commit()
         return self.cursor.lastrowid
 
-    def select(self, table_name: str, columns: list = None, where: str = None) -> list:
+    def select(self, table_name: str, columns: list = None, where: str = None, limit: int = 10, order: str = None) -> list:
         columns_part = ", ".join(columns) if columns else "*"
         query = f"SELECT {columns_part} FROM {table_name}"
         if where:
             query += f" WHERE {where}"
+        if order:
+            query += f" ORDER BY {order}"
+        if limit:
+            query += f" LIMIT {limit}"
+        # print (query)
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         return [
