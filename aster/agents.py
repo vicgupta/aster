@@ -80,7 +80,8 @@ class Agent:
         self.message_prompt.append(create_prompt("assistant", response))
         return response
 
-class ReasoningAgent:
+class ReasoningAgent(Agent):
+
     def __init__(
         self,
         llm: object,
@@ -97,26 +98,3 @@ class ReasoningAgent:
         self.message_prompt = []
         self.message_prompt.append(create_prompt("system", custom_system_prompt))
 
-    def ask(self, prompt):
-        self.message_prompt.append(create_prompt("user", prompt))
-
-        if isinstance(self._llm, OllamaModel):
-            response = self._llm.ask(
-                self.message_prompt,
-                temperature=self._temperature,
-                format=self._format,
-            )
-        if isinstance(self._llm, GroqModel):
-            response = self._llm.ask(
-                self.message_prompt,
-                temperature=self._temperature,
-                max_tokens=self._max_tokens,
-                format=self._format,
-            )
-        if isinstance(self._llm, OpenAIModel):
-            response = self._llm.ask(
-                self.message_prompt,
-            )
-
-        self.message_prompt.append(create_prompt("assistant", response))
-        return response
