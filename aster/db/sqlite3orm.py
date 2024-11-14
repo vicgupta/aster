@@ -49,6 +49,7 @@ class SQLite3ORM:
         set_clause = ", ".join(f"{name} = ?" for name in data)
         values = tuple(data.values())
         query = f"UPDATE {table_name} SET {set_clause} WHERE {where}"
+        print (query)
         self.cursor.execute(query, values)
         self.conn.commit()
 
@@ -75,6 +76,14 @@ class SQLite3ORM:
         self.insert(table_name, {'email': email, 'password': hashed_password})
         print("Signup successful!")
         return True
+    
+    def set_wal_mode(self):
+        try:
+            self.cursor.execute("PRAGMA journal_mode=WAL;")
+            self.conn.commit()
+            print(f"Database successfully set to WAL mode.")
+        except sqlite3.Error as e:
+            print(f"An error occurred while setting WAL mode: {e}")
 
     def close(self):
         self.conn.close()
