@@ -5,7 +5,7 @@ class SQLite3ORM:
     def __init__(self, db_name: str):
         if not db_name:
             raise ValueError("Please provide a database name")
-        self.conn = sqlite3.connect(db_name)
+        self.conn = sqlite3.connect(db_name, check_same_thread=False)
         self.cursor = self.conn.cursor()
 
     def create_table(self, table_name: str, columns: dict):
