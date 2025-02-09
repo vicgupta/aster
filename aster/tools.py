@@ -43,7 +43,7 @@ def print_error(message):
 class WebTools:
 
     @staticmethod
-    def get_duckduckgo_search(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10, backend='api'):
+    def get_duckduckgo_search(query="chatgpt", region="us-en", safesearch="on", timeline="m", max_results=10, backend='auto'):
         from duckduckgo_search import DDGS
         try:
             results = DDGS().text(query, region=region, safesearch=safesearch, timelimit=timeline, max_results=max_results, backend=backend)
