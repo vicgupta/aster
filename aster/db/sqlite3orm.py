@@ -49,7 +49,7 @@ class SQLite3ORM:
         set_clause = ", ".join(f"{name} = ?" for name in data)
         values = tuple(data.values())
         query = f"UPDATE {table_name} SET {set_clause} WHERE {where}"
-        print (query)
+        # print (query)
         self.cursor.execute(query, values)
         self.conn.commit()
 
