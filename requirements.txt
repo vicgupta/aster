@@ -6,4 +6,5 @@ requests
 duckduckgo-search
 pocketbase
 scikit-learn
-
+streamlit
+requests
