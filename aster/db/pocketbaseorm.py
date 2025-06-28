@@ -64,14 +64,14 @@ class PocketbaseORM():
             rows = []
         return rows.items
 
-    def get_items_with_filter(self, column_name = "", column_value= "", perPage=10, sort_by="-created"):
+    def get_items_with_filter(self, column_name = "", column_value= "", compare_symbol="~",perPage=10, sort_by="-created"):
         try:
             rows = self.pb.collection(self.collection).get_list(
                 1, f'{perPage}',
                 #{"filter": "article_keyword~'" + article_value + "'"}
                 {
 
-                    "filter": column_name + "~'" + column_value + "'",
+                    "filter": column_name + compare_symbol + "'" + column_value + "'",
                     "sort": sort_by
                  }
             )
