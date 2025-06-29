@@ -49,7 +49,22 @@ class PocketbaseORM():
             print ("error")
             rows = []
         return rows.items
-    
+
+    def item_exists(self, column_name, column_value):
+        try:
+            rows = self.pb.collection(self.collection).get_list(
+                1, '1',
+                {
+                    "filter": column_name + "='" + column_value + "'"
+                }
+            )
+            if len(rows.items) > 0:
+                return True
+            else:
+                return False
+        except:
+            return False
+
     def get_items_with_filter_exact(self, column_name = "", column_value = "", perPage=10, sort_by="-created"):
         try:
             rows = self.pb.collection(self.collection).get_list(
@@ -68,15 +83,13 @@ class PocketbaseORM():
         try:
             rows = self.pb.collection(self.collection).get_list(
                 1, f'{perPage}',
-                #{"filter": "article_keyword~'" + article_value + "'"}
                 {
-
                     "filter": column_name + compare_symbol + "'" + column_value + "'",
                     "sort": sort_by
                  }
             )
         except:
-            rows = []
+            rows.items = []
         return rows.items
     
     def add_featured_image(self, image_name):
@@ -113,5 +126,4 @@ class PocketbaseORM():
 # for result in results:
 #     print (result.id, result.title)
 #     tblNews.delete_id(result.id)
-
 
