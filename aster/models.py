@@ -109,3 +109,37 @@ class OpenAIModel:
             .choices[0]
             .message.content
         )
+
+# from openai import OpenAI
+class OpenRouterModel:
+
+  def __init__(
+    self,
+    model: str = "moonshotai/kimi-k2:free",
+    api_key: str = "",
+  ):
+    self._model = model
+    self._api_key = api_key
+    self._openrouter = OpenAI(
+      base_url="https://openrouter.ai/api/v1",
+      api_key=self._api_key,
+    )
+
+  def ask(
+    self,
+    prompt: str,
+    temperature: float = 0.5,
+    max_tokens: int = 2048,
+  ):
+    return (
+      self._openrouter.chat.completions.create(
+        messages=prompt,
+        model=self._model,
+        temperature=temperature,
+        max_tokens=max_tokens,
+      )
+      .choices[0]
+      .message.content
+    )
+
+
