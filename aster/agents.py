@@ -1,4 +1,4 @@
-from .models import GroqModel, OllamaModel, OpenAIModel
+from .models import GroqModel, OllamaModel, OpenAIModel, OpenRouterModel
 from .utils import create_prompt
 
 # Display mode enables printing of API requests and responses
@@ -72,6 +72,10 @@ class Agent:
                 format=self._format,
             )
         if isinstance(self._llm, OpenAIModel):
+            response = self._llm.ask(
+                self.message_prompt,
+            )
+        if isinstance(self._llm, OpenRouterModel):
             response = self._llm.ask(
                 self.message_prompt,
             )
